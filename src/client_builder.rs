@@ -64,8 +64,8 @@ impl rustls::client::danger::ServerCertVerifier for NoCertVerification {
 lazy_static! {
     static ref CACERTS: RootCertStore = {
         let mut store = RootCertStore::empty();
-        for cert in load_native_certs().unwrap_or_else(|_| vec![]) {
-            if let Ok(_) = store.add(cert) {}
+        for cert in load_native_certs().certs {
+            let _ = store.add(cert);
         }
         store
     };
